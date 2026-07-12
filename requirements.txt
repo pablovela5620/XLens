@@ -1,0 +1,13 @@
+torch>=2.1
+torchvision
+numpy
+pillow
+pyyaml
+einops
+safetensors
+# optional (previews / fisheye EXR LUTs)
+matplotlib
+imageio
+# optional (ONNX export + inference: xlens/tools/export_onnx_geo.py, infer_onnx.py)
+onnx
+onnxruntime        # use onnxruntime-gpu instead for CUDA / TensorRT execution

@@ -1,0 +1,57 @@
+# Pinhole depth evaluation config on the WAI test set.
+# Usage:
+#     python -m evaluation.eval_pinhole.run_eval \
+#         --config evaluation/eval_pinhole/eval_config.yaml
+#
+# WAI data layout / loading follows MapAnything (https://github.com/facebookresearch/map-anything).
+
+# Output
+# Writes <output_dir>/pinhole_wai_depth_eval.json (per-scene + per-dataset + overall)
+output_dir: /path/to/eval_pinhole_wai
+
+# Datasets
+# WAI data root (contains eth3d/ scannetppv2/ ... dataset dirs)
+wai_root: /path/to/data/wai
+# Scene list metadata (train/ val/ test/, each with <dataset>_scene_list_<split>.npy)
+scene_list_dir: /path/to/data/dataset_metadata_cleaned
+split: test
+# Datasets to run (WAI test).
+datasets: [eth3d, scannetppv2]
+# Only run these scene names (matched across datasets); null = all
+scenes: null
+
+# OmniOCC (6-cam pinhole real data) evaluated alongside pinhole, output separately:
+#   <output_dir>/stage1_wai_depth_eval.json      (WAI test)
+#   <output_dir>/stage1_omniocc_depth_eval.json  (OmniOCC)
+# OmniOCC GT is a cam0-frame lidar point cloud, projected per view to z-depth (same as WAI).
+eval_omniocc: true
+# OmniOCC data root (overrides omniocc_loader default)
+omniocc_root: /path/to/data/OmniOCC/real
+
+# Number of covisibility-sampled views fed to the multi-view model per scene
+num_views: 6
+view_sampling: covisibility          # covisibility / random / sequential
+
+# Valid GT depth range (m). Outside this range is treated as invalid.
+min_depth: 0.05
+max_depth: 80.0
+
+# Inference resolution (must be a multiple of 14). 504x588 (~1.17 aspect)
+target_h: 504
+target_w: 588
+
+# Models to evaluate (reuses eval_pinhole.simple_adapters)
+models:
+  - xlens
+
+xlens:
+  # Pinhole checkpoint: released .safetensors, or a .pth, or an exported .onnx
+  ckpt: /path/to/model.safetensors
+  # Model arch config yaml. For the released .safetensors set this to configs/xlens_vits.yaml.
+  # A .pth ckpt embeds its own config, which takes priority.
+  config: configs/xlens_vits.yaml
+  # Alignment:
+  #   self_scale: use model scale_head metric_scaling_factor -> absolute metric ability (has scale head)
+  #   median:     per-frame median(gt/pred) -> scale-invariant, structure only
+  #   none:       pred as-is (meters)
+  alignment: self_scale

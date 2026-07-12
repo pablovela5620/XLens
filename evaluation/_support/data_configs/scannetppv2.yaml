@@ -1,0 +1,32 @@
+name: scannetppv2
+display_name: ScanNet++ V2
+source: "ScanNet++ v2, indoor metric scans"
+
+is_metric: true
+participate_scale_factor: true
+scale_type: metric
+
+# ScanNet++ stores both raw sensor depth and laser-rendered depth; the latter is cleaner
+depth_key: rendered_depth
+has_moge_mask: false
+has_sky_mask: false
+has_dynamic_mask: false
+
+view_sampling: covisibility
+covisibility_version: v0
+covisibility_threshold: 0.25
+
+apply_moge_mask: false
+apply_sky_mask: false
+clip_depth_p95: false
+
+camera_convention: opencv
+varying_intrinsics: false
+
+# Data mixing strategy (aligned with MoGe-v2)
+quality_tier: B                # A=synthetic / B=laser reconstruction / C=SfM pseudo-GT
+sampling_weight: 5.0              # multinomial sampling weight
+
+notes: |
+  Indoor metric; depth rendered from the laser mesh (rendered_depth), very clean.
+  No sky / dynamic objects; default cleaning rules suffice.

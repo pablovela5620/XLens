@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pth
+*.safetensors
+checkpoints/
+out/
+outputs/
+*.ply
+*.npy
+!examples/**/*.npy
+.DS_Store
+.venv/

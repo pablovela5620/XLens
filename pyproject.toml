@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xlens"
+version = "0.1.0"
+description = "Multi-view metric-depth estimation across pinhole, fisheye, and heterogeneous camera rigs."
+requires-python = ">=3.9"
+dependencies = ["torch>=2.1", "torchvision", "numpy", "pillow", "pyyaml", "einops", "safetensors"]
+
+[project.optional-dependencies]
+viz = ["matplotlib", "imageio"]
+onnx = ["onnx", "onnxruntime"]   # onnxruntime-gpu for CUDA / TensorRT
+
+[tool.setuptools.packages.find]
+include = ["xlens*"]

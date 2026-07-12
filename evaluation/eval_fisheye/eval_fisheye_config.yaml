@@ -1,0 +1,65 @@
+# Fisheye-only (4-cam omni) test-set eval config.
+# Usage:
+#   python -m evaluation.eval_fisheye.eval_fisheye      --config <this.yaml>
+# Priority: CLI args > this yaml > script defaults. Any field can be overridden on the CLI.
+
+# Checkpoint / model config
+# Checkpoint to evaluate (.safetensors or .pth). Required (here or via --ckpt).
+ckpt: /path/to/model.safetensors
+# Model arch config yaml. For the released .safetensors set this to configs/xlens_vits.yaml.
+# A .pth ckpt embeds its own config, which takes priority.
+model_config: configs/xlens_vits.yaml
+
+# Dataset (foundationstage2 test split)
+data_root: /path/to/data/foundationstage2/test
+lut_dir:   /path/to/data/texture/texture
+# Scene dir names to evaluate. null = all scenes under data_root.
+# Example: [taobao_VictorianLivingRoom_50_40_10, intime_factory_000_50_40_10]
+scenes: null
+
+# Inference resolution (must be a multiple of 14). null = first image_size in model_config (504x798)
+target_h: 504
+target_w: 798
+
+# ray_map mode: full (intrinsics+extrinsics) / icam (intrinsics only) / none. Eval default full
+ray_mode: full
+
+# Valid GT depth range (m). Outside is invalid, excluded from metrics and figures.
+min_depth: 0.05
+max_depth: 80.0
+
+amp_dtype: bf16        # bf16 / fp16
+device: cuda           # cuda / cpu
+
+# Use fisheye lens mask (+ valid_mask) filtering. true = on (recommended, cuts black borders)
+use_lens_mask: true
+
+# eval_fisheye.py specific
+output_dir: ./eval_fisheye_out     # metrics JSON + depth figures root
+batch_size: 4
+num_workers: 8
+# Max frames evaluated per scene. null = all; a small number for sanity checks
+max_samples_per_scene: null
+
+# Full-frame comparison figure: all 4 fisheye as [RGB | GT depth | (pred-GT) error]
+#   rows = RGB / GT / error, columns = 4 cameras.
+vis: true                # false = metrics only, no figures (faster)
+max_vis_frames: 10        # max frames saved per scene (one 4-camera grid per frame)
+err_clip: 1.0            # error scale +/-this value (m). signed (pred-GT) clamped (blue=under/red=over)
+near_clip: 5.0           # error figure draws only GT within 0~this value (m), rest grayed
+
+# Depth metrics bucketed by distance (right edge, m). Each bucket computes MAE / AbsRel / RMSE / delta.
+# Bucket = (previous edge, current edge], first bucket (0, 5]. There is always an overall bucket.
+# Current: 0-5m / 5-10m / 10-15m / 15-20m.
+distance_buckets: [5, 10, 15, 20]
+
+# valid set (depth figures only, no MAE etc.)
+# Same structure as test (OmniSceneDataset, has GT depth). Saves a 3-panel
+# [RGB | GT depth | Pred depth] per (scene, frame, cam) (GT/pred share the turbo scale).
+valid:
+  enabled: true
+  data_root: /path/to/data/foundationstage2/valid
+  scenes: null                              # null = all scenes under data_root
+  output_dir: ./eval_fisheye_out/valid_depth # depth figures output dir
+  max_vis_frames: 10                        # max frames saved per scene (one per camera per frame)
+  max_samples_per_scene: 20                 # max frames traversed per scene (sanity, null=all)
