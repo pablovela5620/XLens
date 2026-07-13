@@ -16,8 +16,7 @@
 [![Weights](https://img.shields.io/badge/🤗%20HuggingFace-Weights-ffce44.svg)](https://huggingface.co/henryzhou998/X-Lens)
 [![License](https://img.shields.io/badge/License-Apache%202.0-4c9a2a.svg)](LICENSE)
 
-<!-- TODO(teaser): drop a demo gif / point-cloud render in assets/ and point here -->
-<img src="assets/teaser.gif" width="80%" alt="X-Lens teaser"/>
+<img src="assets/images/teaser_cover.jpg" width="100%" alt="X-Lens teaser"/>
 
 </div>
 
