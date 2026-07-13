@@ -21,7 +21,7 @@
 </div>
 
 > **X-Lens** recovers dense **metric depth** and a **fused 3D point cloud** from an
-> arbitrary set of views (`S ≥ 2`) captured by an arbitrary mix of cameras — perspective
+> arbitrary set of views captured by an arbitrary mix of cameras — perspective
 > **pinhole**, wide-FoV **fisheye**, or a **heterogeneous** rig that combines both in a single
 > pass. Built on an alternating (frame ⇄ global) cross-view attention backbone, it
 > reasons jointly across views and camera models, so a fisheye surround-view scene and a set of
@@ -318,12 +318,10 @@ the model is designed for.
 | `CAM_A` `CAM_B` `CAM_C` `CAM_D` | **fisheye** — omnidirectional (Mei / unified-sphere: `xi` + `radtan` distortion) | 4 side fisheye cameras |
 | `CAM_Front` `CAM_Back` | **pinhole** — perspective (3×3 `K`) | forward / backward views |
 
-This is exactly the **4 fisheye + 2 pinhole** heterogeneous rig X-Lens is built for.
-
 
 ### Directory structure
 
-On the Hub, **each sequence is packaged as a single `.tar`** (691 `train` + 62 `valid` + 23 `test`),
+On the Hub, **each sequence is packaged as a single `.tar`**,
 which keeps the repo well under the Hub's file-count limit:
 
 ```
