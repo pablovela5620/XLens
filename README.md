@@ -11,8 +11,8 @@
 
 ###
 <!-- TODO(links): fill in once the paper / project page / model weights are public -->
-[![Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b.svg)](https://arxiv.org/abs/XXXX.XXXXX)
-[![Project Page](https://img.shields.io/badge/Project-Page-1f8ceb.svg)](https://your-project-page.github.io)
+[![Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b.svg)](https://arxiv.org/abs/2607.12993)
+[![Project Page](https://img.shields.io/badge/Project-Page-1f8ceb.svg)](https://drobotics-xlens.github.io/)
 [![Weights](https://img.shields.io/badge/🤗%20HuggingFace-Weights-ffce44.svg)](https://huggingface.co/henryzhou998/X-Lens)
 [![License](https://img.shields.io/badge/License-Apache%202.0-4c9a2a.svg)](LICENSE)
 
@@ -41,9 +41,9 @@ per-pixel ray representation + camera-type conditioning — no rectification, no
 ## 📰 News
 
 <!-- TODO(news): fill dates/links as you release. Newest first. -->
-- **[XX-XX-2026]** 📦 **OmniScene dataset released** on [Hugging Face](https://huggingface.co/datasets/henryzhou998/OmniScene/tree/main)
-- **[XX-XX-2026]** 🎉 Initial release: inference code + XLens-S checkpoints for all three camera modes.
-- **[XX-XX-2026]** 📄 Paper released on arXiv.
+- **[07-15-2026]** 📦 **OmniScene dataset released** on [Hugging Face](https://huggingface.co/datasets/henryzhou998/OmniScene/tree/main)
+- **[07-15-2026]** 🎉 Initial release: inference code + XLens-S checkpoints for all three camera modes.
+- **[07-15-2026]** 📄 Paper released on arXiv.
 
 ---
 
