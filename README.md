@@ -3,7 +3,7 @@
 # X-Lens：Real-Time Metric Depth Estimation with Heterogeneous Cameras
 
 <!-- TODO(authors): add homepage links to names if desired, e.g. [**Heng Zhou**](https://...) -->
-**Heng Zhou**<sup>1&ast;</sup> · [**Shuhong Liu**](https://shuhongll.github.io/)<sup>1,2&ast;</sup> · **Yonghao He**<sup>1</sup> · **Bohao Zhang**<sup>1</sup> · **Fa Fu**<sup>1</sup> · **Chenhui Hou**<sup>1</sup><br/>**Xianbao Hou**<sup>1,3</sup> · **Lijun Han**<sup>1</sup> · **Wei Sui**<sup>1&dagger;&#9993;</sup>
+**Heng Zhou**<sup>1&ast;</sup> · [**Shuhong Liu**](https://shuhongll.github.io/)<sup>1,2&ast;</sup> · **Yonghao He**<sup>1&dagger;</sup> · **Bohao Zhang**<sup>1</sup> · **Fa Fu**<sup>1</sup><br/>**Chenhui Hou**<sup>1</sup> · **Xianbao Hou**<sup>1,3</sup> · **Lijun Han**<sup>1</sup> · **Cong Yang**<sup>3</sup> · **Wei Sui**<sup>1&dagger;&#9993;</sup>
 
 <sup>1</sup>D-Robotics&emsp;<sup>2</sup>The University of Tokyo&emsp;<sup>3</sup>Soochow University
 
