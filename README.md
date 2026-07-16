@@ -467,13 +467,13 @@ evaluation follows [MapAnything](https://github.com/facebookresearch/map-anythin
 
 ## 📜 Citation
 
-<!-- TODO(citation): fill in on release -->
 ```bibtex
-@article{xlens,
+@article{zhou2026xlens,
   title   = {X-Lens: Real-Time Metric Depth Estimation with Heterogeneous Cameras},
-  author  = {TODO},
-  journal = {arXiv preprint arXiv:XXXX.XXXXX},
-  year    = {2026}
+  author  = {Zhou, Heng and Liu, Shuhong and He, Yonghao and Zhang, Bohao and Fu, Fa and
+             Hou, Chenhui and Hou, Xianbao and Han, Lijun and Yang, Cong and Sui, Wei},
+  journal = {arXiv preprint arXiv:2607.12993},
+  year    = {2026},
 }
 ```
 
