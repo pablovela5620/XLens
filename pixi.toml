@@ -1,0 +1,42 @@
+# Public tasks: demo (canonical heterogeneous rig), demo-eth3d, demo-upstream
+
+[workspace]
+channels = ["https://prefix.dev/conda-forge"]
+name = "xlens"
+platforms = [{ name = "linux-64-cuda13", platform = "linux-64", cuda = "13.0", glibc = "2.35" }]
+requires-pixi = ">=0.73"
+
+[dependencies]
+python = "3.12.*"
+cuda-version = "13.0.*"
+pytorch-gpu = ">=2.12,<2.13"
+torchvision = "*"
+numpy = "*"
+einops = ">=0.8.0,<0.9"
+pyyaml = "*"
+pillow = "*"
+safetensors = "*"
+tyro = ">=0.9.1,<0.10"
+jaxtyping = "*"
+huggingface_hub = "*"
+hf-transfer = "*"
+# simplecv runtime deps supplied by the monorepo's common feature.
+av = "*"
+pyarrow = "*"
+typing-extensions = ">=4.1,<4.16"
+
+[pypi-dependencies]
+rerun-sdk = { version = "==0.36.2", extras = ["datafusion"] }
+simplecv = { git = "https://github.com/rerun-io/examples-monorepo", branch = "main", subdirectory = "packages/simplecv" }
+xlens = { path = ".", editable = true }
+
+[activation.env]
+HF_HUB_ENABLE_HF_TRANSFER = "1"
+LD_LIBRARY_PATH = "$CONDA_PREFIX/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+[tasks]
+_download-checkpoints = "test -f weights/x-lens/model.safetensors || hf download henryzhou998/X-Lens model.safetensors --revision 1d0c96353b69464addad12389fadbb816e3978ae --local-dir weights/x-lens"
+_download-data = "test -f data/datasets/ETH3D/two_view_training/playground_1l/im0.png && test -f data/datasets/ETH3D/two_view_training_gt/playground_1l/disp0GT.pfm || hf download pablovela5620/monoprior-example --include 'stereo/eth3d/*' --repo-type dataset --local-dir data/hf && mkdir -p data/datasets/ETH3D && cp -r data/hf/stereo/eth3d/two_view_training data/hf/stereo/eth3d/two_view_training_gt data/datasets/ETH3D/"
+demo = { cmd = "mkdir -p out && python -u demo_rerun.py --scene hetero_loft --rr-config.headless --rr-config.save out/hetero_loft.rrd", depends-on = ["_download-checkpoints"] }
+demo-eth3d = { cmd = "mkdir -p out && python -u demo_rerun.py --scene eth3d --rr-config.headless --rr-config.save out/eth3d.rrd", depends-on = ["_download-checkpoints", "_download-data"] }
+demo-upstream = { cmd = "python -u inference.py --ckpt weights/x-lens/model.safetensors --config configs/xlens_vits.yaml --manifest examples/hetero_loft/scene.json --out out/hetero --max-depth 25", depends-on = ["_download-checkpoints"] }

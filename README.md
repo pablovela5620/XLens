@@ -187,6 +187,26 @@ save_ply("points.ply", pts, col)
 
 </details>
 
+## Run with pixi
+
+The `pixi` branch pins the CUDA 13 / PyTorch 2.12 environment used by the
+Rerun demo. The default task downloads the authors' gated checkpoint and runs
+the bundled six-camera heterogeneous scene headlessly:
+
+```bash
+pixi run demo
+```
+
+Run the ETH3D two-view baseline or the unchanged upstream CLI with:
+
+```bash
+pixi run demo-eth3d
+pixi run demo-upstream
+```
+
+The checkpoint remains subject to the authors' CC-BY-NC 4.0 license and is
+downloaded directly from `henryzhou998/X-Lens`; it is not mirrored here.
+
 <details>
 <summary><b>Fisheye calibration → LUT</b></summary>
 

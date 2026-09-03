@@ -10,3 +10,7 @@ outputs/
 !examples/**/*.npy
 .DS_Store
 .venv/
+.pixi/
+*.egg-info/
+weights/
+data/
