@@ -52,6 +52,12 @@ ETH3D `playground_1l`, non-occluded pixels with GT disparity `<192` px. X-Lens i
 | LiteAnyStereo V2 H | — | 1.12 | — | prior stereo-port baseline |
 | Fast-FoundationStereo | — | 0.48 | — | prior stereo-port baseline |
 
+Reviewer check (2026-09-03, `/tmp/grill/evidence/eth3d_scale_aligned.py`, same crop/mask/protocol): the metric miss is a
+global scale error, not geometry. Predicted depth is 1.76× too large (pred median 6.37 m vs GT 3.62 m; `fx` 542.0 px,
+baseline 0.0596 m; X-Lens normalises the pose translation, so a 6 cm baseline carries no metric cue). After median scale
+alignment: abs-rel 0.151, δ1 0.729, EPE 1.42 px (metric: abs-rel 0.760, δ1 0.094, EPE 4.47 px). Recorded as the two
+baselines for the port's gate 2: metric and scale-aligned.
+
 ## Fresh-clone timing
 
 A fresh remote clone started without `.pixi/`, weights, or data and used a warm shared Pixi package cache. `pixi run demo` materialized the environment, downloaded the gated checkpoint, ran inference and the 10+50 benchmark, fused/logged the scene, and serialized the Rerun recording in **62.60 s** wall time. Its synchronized model-only result was **883.114 ms per six-view scene**. A second fresh run took 69.50 s and measured 983.129 ms; an earlier complete run in the working clone took 60.61 s and measured 943.793 ms. All produced scale factor 3.391602755 and 1,990,286 fused points. The ETH3D scale factor was 12.725567818. The canonical heterogeneous demo does not need or download the ETH3D data.
